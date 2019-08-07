@@ -1,0 +1,120 @@
+# 数据库基础知识
+## 数据库定义
+### DB(database)
+保存有组织的数据的容器
+#### 表（table)
+某种特定类型数据的结构化清单
+表名
+模式 关于数据库和表的布局及特性的信息
+
+#### 列column
+表由列组成 列是表中的一个字段  所有表由多个列组成（series）
+#### 行row
+数据库记录record
+#### 主键
+表中每一行都应该有一列可以唯一标识表中的每一行
+任意两行都不具有相同的主键值（主键列不允许NULL值）
+主键列中的值不允许修改或更新
+主键值不能重用（如果删除，不能赋值给以后的新行）
+#### 外键
+### DBMS(database manage system)
+数据库管理系统
+### SQL
+结构化查询语言
+structured query language
+关系型数据库
+二维表
+行
+列
+主键
+外键
+# mySQL数据库管理系统
+数据库
+数据表
+视图
+存储过程
+
+## 导入数据库
+
+```
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+mysql -u root -p
+CREATE DATABASE IF NOT EXISTS email DEFAULT CHARSET utf8 COLLATE utf8_general_ci;
+use email;
+source C:\Users\14163\Documents\MySQL\yiibaidb/email.sql;
+select city,phone,country from `offices`;
+
+```
+这里`offices`反引号
+
+## 检索数据
+### 2.1 SELECT语句
+
+```
+SELECT lastname, firstname, jobtitle FROM employees;
+SELECT lastname, firstname, jobtitle FROM employees WHERE jobtitle='Sales Rep';
+SELECT lastname, firstname, jobtitle FROM employees WHERE jobtitle='Sales Rep' AND officeCode=1;
+SELECT lastname,firstname,jobtitle FROM employees WHERE jobtitle!='Sales Rep';
+SELECT firstname,lastname,jobtitle FROM employees WHERE officeCode>5;
+```
+
+
+如果没有明确排序查询结果，则返回的数据没有特定的顺序，返回的数据有可能是数据被添加到表中的顺序，也可能不是
+
+将SQL语句分成多行更容易阅读和调试
+
+检索所有列
+
+```
+SELECT * FROM employees WHERE officeCode=5;
+#其中*是通配符
+
+```
+### 检索不同的值
+
+```
+SELECT DISTINCT firstname FROM employees;
+
+
+```
+### 限制结果
+
+```
+SELECT firstname 
+FROM employees
+LIMIT 5;
+
+```
+### 使用注释
+
+```
+/*SELECT firstname -- 这是一条注释
+FROM employees
+# 这是另一条注释
+LIMIT 5;*/
+```
+
+### 排序检索数据(order by)
+
+```
+-- SELECT firstname FROM employees ORDER BY firstname;
+-- 按多个列排序
+SELECT firstname, lastname, jobtitle FROM employees ORDER BY firstname, lastname, jobtitle;
+-- 先按照firstname 排序，再按照lastname排序，最后按照jobtitle排序
+
+```
+
+作业一
+
+导入数据库在CMD运行
+查询函数为
+
+```
+select Email from email group by Email having count(Email)>1;
+```
+作业二
+
+```
+SELECT name,population,area FROM world WHERE area>300 OR (area>2500 AND gdp>2000);
+```
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20190807203049282.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BpY2t1cHVwdXA=,size_16,color_FFFFFF,t_70)
